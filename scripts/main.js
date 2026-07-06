@@ -1,14 +1,18 @@
+let bookArray = [];
+
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.uuid = crypto.randomUUID();
 
     this.info = function() {
-        console.log(`${title} by ${author} is ${pages} pages long. Read: ${read}`);
+        console.log(`${title} by ${author} is ${pages} pages long. Read: ${read} UUID: ${this.uuid}`);
     }
 }
 
-let bookOne = new Book("Danger Things", "The fluffer brothers", "548", "No");
-
-bookOne.info();
+function addBookToLibrary(title, author, pages, read){
+    let book = new Book(title, author, pages, read);
+    bookArray.push(book);
+}
