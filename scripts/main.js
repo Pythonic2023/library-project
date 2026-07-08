@@ -1,3 +1,11 @@
+let addBookDialog = document.querySelector('dialog');
+let addBookButton = document.querySelector('dialog + button');
+let closeModalButton = document.querySelector('dialog button');
+
+addBookButton.addEventListener("click", () => addBookDialog.showModal());
+closeModalButton.addEventListener("click", () => addBookDialog.close());
+
+
 let bookArray = ["The Shining", "Elegant Coffee", "The duo of duo's", "My Great Book", "Yorkies Night Out", "Haunted: Scary Edition"];
 
 function Book(title, author, pages, read){
@@ -17,10 +25,6 @@ function addBookToLibrary(title, author, pages, read){
     bookArray.push(book);
 }
 
-// Loop through each book in array and display on the page, either in a card or table. 
-
-// Make divs in the node, then insert the books into those divs. 
-
 function displayBooks(){
     const bookSection = document.querySelector(".books");
     bookArray.forEach((item) => {
@@ -30,7 +34,6 @@ function displayBooks(){
         bookItem.textContent = item;
         bookSection.appendChild(bookDivision);
         bookDivision.appendChild(bookItem);
-        //bookSection.appendChild(bookItem);
     });
 }
 
