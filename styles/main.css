@@ -32,3 +32,9 @@
     background-color: red;
 }
 
+.modal {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+}
+

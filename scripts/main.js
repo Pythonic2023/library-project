@@ -1,12 +1,27 @@
 let addBookDialog = document.querySelector('dialog');
 let addBookButton = document.querySelector('dialog + button');
 let closeModalButton = document.querySelector('dialog button');
+let modalAddBook = document.querySelector('#add-book');
 
-addBookButton.addEventListener("click", () => addBookDialog.showModal());
-closeModalButton.addEventListener("click", () => addBookDialog.close());
+modalAddBook.addEventListener("click", (e) => {
+    e.preventDefault();
+    addBookToLibrary("the", "the", "the", "y");
+    addBookDialog.close();
+    addBookDialog.classList.toggle("modal");
+});
+
+addBookButton.addEventListener("click", () => {
+    addBookDialog.showModal();
+    addBookDialog.classList.toggle("modal");
+});
+
+closeModalButton.addEventListener("click", () => {
+    addBookDialog.close();
+    addBookDialog.classList.toggle("modal")
+});
 
 
-let bookArray = ["The Shining", "Elegant Coffee", "The duo of duo's", "My Great Book", "Yorkies Night Out", "Haunted: Scary Edition"];
+let bookArray = ["The rodeo", "The happening", "Sharknado 102"];
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -23,18 +38,31 @@ function Book(title, author, pages, read){
 function addBookToLibrary(title, author, pages, read){
     let book = new Book(title, author, pages, read);
     bookArray.push(book);
+    displayBooks();
 }
 
 function displayBooks(){
     const bookSection = document.querySelector(".books");
-    bookArray.forEach((item) => {
+
+
+    if(bookSection.childElementCount === 0){
+        bookArray.forEach((item) => {
+            const bookDivision = document.createElement('div');
+            bookDivision.classList.add("book-division");
+            const bookItem = document.createElement('p');
+            bookSection.appendChild(bookDivision);
+            bookDivision.appendChild(bookItem);
+            bookItem.textContent = item;
+        });
+    } else {
         const bookDivision = document.createElement('div');
         bookDivision.classList.add("book-division");
         const bookItem = document.createElement('p');
-        bookItem.textContent = item;
         bookSection.appendChild(bookDivision);
         bookDivision.appendChild(bookItem);
-    });
+        bookItem.textContent = bookArray.at(-1).title;
+    }
+    let bookCount = bookSection.childElementCount;
 }
 
 displayBooks();
