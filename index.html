@@ -12,9 +12,34 @@
     <div class="grid-container">
         <div class="header">
             <h1>Library Project</h1>
+            <dialog>
+                <form>
+                    <p>
+                        <label for="title">title</label>
+                        <input type="text" name="title" id="title">
+                    </p>
+                    <p>
+                        <label for="author">author</label>
+                        <input type="text" name="author" id="author">
+                    </p>
+                    <p>
+                        <label for="pages">pages</label>
+                        <input type="text" name="pages" id="pages">
+                    </p>
+                    <p>
+                        <label for="read">read</label>
+                        <input type="text" name="read" id="read">
+                    </p>
+                    <div>
+                        <button>Close</button>
+                        <button id="add-book">Add Book</button>
+                    </div>
+                </form>
+            </dialog>
+            <button>Add Book</button>
         </div>
         <div class="side-bar"></div>
-        <div class="books"></div>
+        <div class="books" id="books-container"></div>
     </div>
 </body>
 </html>
