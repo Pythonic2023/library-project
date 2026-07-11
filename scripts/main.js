@@ -2,13 +2,17 @@ let addBookDialog = document.querySelector('dialog');
 let addBookButton = document.querySelector('dialog + button');
 let closeModalButton = document.querySelector('dialog button');
 let modalAddBook = document.querySelector('#add-book');
+let modalForm = document.getElementById('modal-form');
 
-modalAddBook.addEventListener("click", (e) => {
+modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    addBookToLibrary("the", "the", "the", "y");
+    let formData = new FormData(modalForm);
+    let formObject = Object.fromEntries(formData.entries());
     addBookDialog.close();
     addBookDialog.classList.toggle("modal");
+    addBookToLibrary(...Object.values(formObject));
 });
+
 
 addBookButton.addEventListener("click", () => {
     addBookDialog.showModal();
