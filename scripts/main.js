@@ -6,12 +6,10 @@ let modalForm = document.getElementById('modal-form');
 
 document.body.addEventListener('click', (e) => {
     if (e.target && e.target.matches('.delete-book')) {
-        console.log('fired');
         const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
-        bookArray.splice(result, 1);
-        console.log(bookArray);
+        deleteBook(result);
     }
-})
+});
 
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -34,6 +32,13 @@ closeModalButton.addEventListener("click", () => {
 });
 
 let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
+
+function deleteBook(result){
+    if(result != -1){
+        bookArray.splice(result, 1);
+        displayBooks();
+    }
+}
 
 function Book(title, author, pages, read){
     this.title = title;
