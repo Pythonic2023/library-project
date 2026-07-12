@@ -4,6 +4,15 @@ let closeModalButton = document.querySelector('dialog button');
 let modalAddBook = document.querySelector('#add-book');
 let modalForm = document.getElementById('modal-form');
 
+document.body.addEventListener('click', (e) => {
+    if (e.target && e.target.matches('.delete-book')) {
+        console.log('fired');
+        const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
+        bookArray.splice(result, 1);
+        console.log(bookArray);
+    }
+})
+
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let formData = new FormData(modalForm);
@@ -23,7 +32,6 @@ closeModalButton.addEventListener("click", () => {
     addBookDialog.close();
     addBookDialog.classList.toggle("modal")
 });
-
 
 let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
 
@@ -50,11 +58,12 @@ function displayBooks(){
     bookSection.replaceChildren();
     bookArray.forEach((item) => {
         const bookDivision = document.createElement('div');
-        bookDivision.id = item.uuid;
+        bookDivision.classList.add(item.uuid);
         bookDivision.classList.add("book-division");
         const bookItem = document.createElement('p');
         const deleteBookButton = document.createElement('button');
         deleteBookButton.classList.add("delete-book");
+        deleteBookButton.dataset.uuid = item.uuid;
         deleteBookButton.type = "button";
         deleteBookButton.textContent = "Delete Book";
         bookSection.appendChild(bookDivision);
