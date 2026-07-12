@@ -54,8 +54,12 @@ function displayBooks(){
             const bookDivision = document.createElement('div');
             bookDivision.classList.add("book-division");
             const bookItem = document.createElement('p');
+            const deleteBookButton = document.createElement('button');
+            deleteBookButton.type = "button";
+            deleteBookButton.textContent = "Delete Book";
             bookSection.appendChild(bookDivision);
             bookDivision.appendChild(bookItem);
+            bookDivision.appendChild(deleteBookButton);
             bookItem.textContent = item;
         });
     } else {
