@@ -4,6 +4,13 @@ let closeModalButton = document.querySelector('dialog button');
 let modalAddBook = document.querySelector('#add-book');
 let modalForm = document.getElementById('modal-form');
 
+document.body.addEventListener('click', (e) => {
+    if (e.target && e.target.matches('.delete-book')) {
+        const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
+        deleteBook(result);
+    }
+});
+
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let formData = new FormData(modalForm);
@@ -24,8 +31,14 @@ closeModalButton.addEventListener("click", () => {
     addBookDialog.classList.toggle("modal")
 });
 
+let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
 
-let bookArray = ["The rodeo", "The happening", "Sharknado 102"];
+function deleteBook(result){
+    if(result != -1){
+        bookArray.splice(result, 1);
+        displayBooks();
+    }
+}
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -47,30 +60,22 @@ function addBookToLibrary(title, author, pages, read){
 
 function displayBooks(){
     const bookSection = document.querySelector(".books");
-
-
-    if(bookSection.childElementCount === 0){
-        bookArray.forEach((item) => {
-            const bookDivision = document.createElement('div');
-            bookDivision.classList.add("book-division");
-            const bookItem = document.createElement('p');
-            const deleteBookButton = document.createElement('button');
-            deleteBookButton.type = "button";
-            deleteBookButton.textContent = "Delete Book";
-            bookSection.appendChild(bookDivision);
-            bookDivision.appendChild(bookItem);
-            bookDivision.appendChild(deleteBookButton);
-            bookItem.textContent = item;
-        });
-    } else {
+    bookSection.replaceChildren();
+    bookArray.forEach((item) => {
         const bookDivision = document.createElement('div');
+        bookDivision.classList.add(item.uuid);
         bookDivision.classList.add("book-division");
         const bookItem = document.createElement('p');
+        const deleteBookButton = document.createElement('button');
+        deleteBookButton.classList.add("delete-book");
+        deleteBookButton.dataset.uuid = item.uuid;
+        deleteBookButton.type = "button";
+        deleteBookButton.textContent = "Delete Book";
         bookSection.appendChild(bookDivision);
         bookDivision.appendChild(bookItem);
-        bookItem.textContent = bookArray.at(-1).title;
-    }
-    let bookCount = bookSection.childElementCount;
+        bookDivision.appendChild(deleteBookButton);
+        bookItem.textContent = item.title;
+    });
 }
 
 displayBooks();
