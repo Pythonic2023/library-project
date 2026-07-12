@@ -25,7 +25,7 @@ closeModalButton.addEventListener("click", () => {
 });
 
 
-let bookArray = ["The rodeo", "The happening", "Sharknado 102"];
+let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
 
 function Book(title, author, pages, read){
     this.title = title;
@@ -47,30 +47,21 @@ function addBookToLibrary(title, author, pages, read){
 
 function displayBooks(){
     const bookSection = document.querySelector(".books");
-
-
-    if(bookSection.childElementCount === 0){
-        bookArray.forEach((item) => {
-            const bookDivision = document.createElement('div');
-            bookDivision.classList.add("book-division");
-            const bookItem = document.createElement('p');
-            const deleteBookButton = document.createElement('button');
-            deleteBookButton.type = "button";
-            deleteBookButton.textContent = "Delete Book";
-            bookSection.appendChild(bookDivision);
-            bookDivision.appendChild(bookItem);
-            bookDivision.appendChild(deleteBookButton);
-            bookItem.textContent = item;
-        });
-    } else {
+    bookSection.replaceChildren();
+    bookArray.forEach((item) => {
         const bookDivision = document.createElement('div');
+        bookDivision.id = item.uuid;
         bookDivision.classList.add("book-division");
         const bookItem = document.createElement('p');
+        const deleteBookButton = document.createElement('button');
+        deleteBookButton.classList.add("delete-book");
+        deleteBookButton.type = "button";
+        deleteBookButton.textContent = "Delete Book";
         bookSection.appendChild(bookDivision);
         bookDivision.appendChild(bookItem);
-        bookItem.textContent = bookArray.at(-1).title;
-    }
-    let bookCount = bookSection.childElementCount;
+        bookDivision.appendChild(deleteBookButton);
+        bookItem.textContent = item.title;
+    });
 }
 
 displayBooks();
