@@ -5,9 +5,15 @@ let modalAddBook = document.querySelector('#add-book');
 let modalForm = document.getElementById('modal-form');
 
 document.body.addEventListener('click', (e) => {
-    if (e.target && e.target.matches('.delete-book')) {
+    if(e.target && e.target.matches('.delete-book')) {
         const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
         deleteBook(result);
+    }
+
+    if(e.target && e.target.matches('.read-status')){
+        const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
+        console.log(result);
+        changeStatus(result);
     }
 });
 
@@ -32,6 +38,14 @@ closeModalButton.addEventListener("click", () => {
 });
 
 let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
+
+function changeStatus(result){
+    if(result != -1){
+        bookArray.at(result).read = "n"
+        console.log(bookArray);
+        displayBooks();
+    }
+}
 
 function deleteBook(result){
     if(result != -1){
@@ -65,16 +79,35 @@ function displayBooks(){
         const bookDivision = document.createElement('div');
         bookDivision.classList.add(item.uuid);
         bookDivision.classList.add("book-division");
-        const bookItem = document.createElement('p');
+
+        const bookTitle = document.createElement('p');
+        const bookAuthor = document.createElement('p');
+        const bookPages = document.createElement('p');
+        const bookRead = document.createElement('p');
+
+        const changeReadStatus = document.createElement('button');
+        changeReadStatus.classList.add("read-status");
+        changeReadStatus.textContent = "Read Status";
+        changeReadStatus.dataset.uuid = item.uuid;
+
         const deleteBookButton = document.createElement('button');
         deleteBookButton.classList.add("delete-book");
         deleteBookButton.dataset.uuid = item.uuid;
         deleteBookButton.type = "button";
         deleteBookButton.textContent = "Delete Book";
+
         bookSection.appendChild(bookDivision);
-        bookDivision.appendChild(bookItem);
+        bookDivision.appendChild(bookTitle);
         bookDivision.appendChild(deleteBookButton);
-        bookItem.textContent = item.title;
+        bookDivision.appendChild(changeReadStatus);
+        bookDivision.appendChild(bookAuthor);
+        bookDivision.appendChild(bookPages);
+        bookDivision.appendChild(bookRead);
+        
+        bookTitle.textContent = item.title;
+        bookAuthor.textContent = item.author;
+        bookPages.textContent = item.pages;
+        bookRead.textContent = item.read; 
     });
 }
 
