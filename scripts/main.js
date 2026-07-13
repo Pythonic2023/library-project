@@ -11,9 +11,8 @@ document.body.addEventListener('click', (e) => {
     }
 
     if(e.target && e.target.matches('.read-status')){
-        const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
-        console.log(result);
-        changeStatus(result);
+        const index = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
+        changeStatus(index);
     }
 });
 
@@ -39,10 +38,10 @@ closeModalButton.addEventListener("click", () => {
 
 let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
 
-function changeStatus(result){
-    if(result != -1){
-        bookArray.at(result).read = "n"
-        console.log(bookArray);
+function changeStatus(index){
+    if(index != -1){
+        //bookArray.at(index).read = "n";
+        bookArray.at(index).read = bookArray.at(index).read === "y" ? "n" : "y";
         displayBooks();
     }
 }
@@ -98,16 +97,16 @@ function displayBooks(){
 
         bookSection.appendChild(bookDivision);
         bookDivision.appendChild(bookTitle);
-        bookDivision.appendChild(deleteBookButton);
-        bookDivision.appendChild(changeReadStatus);
         bookDivision.appendChild(bookAuthor);
         bookDivision.appendChild(bookPages);
         bookDivision.appendChild(bookRead);
+        bookDivision.appendChild(deleteBookButton);
+        bookDivision.appendChild(changeReadStatus);
         
-        bookTitle.textContent = item.title;
-        bookAuthor.textContent = item.author;
-        bookPages.textContent = item.pages;
-        bookRead.textContent = item.read; 
+        bookTitle.textContent = `Title: ${item.title}`;
+        bookAuthor.textContent = `Author: ${item.author}`;
+        bookPages.textContent = ` Pages: ${item.pages}`;
+        bookRead.textContent = `Read: ${item.read}`; 
     });
 }
 
