@@ -12,9 +12,8 @@ document.body.addEventListener('click', (e) => {
 
     if(e.target && e.target.matches('.read-status')){
         const index = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
-        bookArray.at(index).changeStatus;
-        //changeStatus(index);
-
+        bookArray.at(index).changeStatus();
+        displayBooks();
     }
 });
 
@@ -40,16 +39,6 @@ closeModalButton.addEventListener("click", () => {
 
 let bookArray = [];
 
-/*
-function changeStatus(index){
-    if(index != -1){
-        //bookArray.at(index).read = "n";
-        bookArray.at(index).read = bookArray.at(index).read === "y" ? "n" : "y";
-        displayBooks();
-    }
-}
-*/
-
 function deleteBook(result){
     if(result != -1){
         bookArray.splice(result, 1);
@@ -59,25 +48,13 @@ function deleteBook(result){
 
 const bookPrototype = {
     changeStatus() {
-        this.read = "n" ? "y" : "n";
+        this.read = this.read === "no" ? "yes" : "no";
     },
 }
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.uuid = crypto.randomUUID();
-}
-
-console.log(Object.getPrototypeOf(Book));
-
 function addBookToLibrary(title, author, pages, read){
-    //let book = new Book(title, author, pages, read);
     let book = Object.create(bookPrototype);
-    Object.assign(book, {title, author, pages, read});
-    console.log(Object.getPrototypeOf(book));
+    Object.assign(book, {title, author, pages, read, uuid: crypto.randomUUID()});
     bookArray.push(book);
     displayBooks();
 }
