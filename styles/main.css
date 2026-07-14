@@ -1,3 +1,8 @@
+html, body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
 .grid-container {
     display: grid;
     height: 100vh;
@@ -10,6 +15,13 @@
     grid-column: 1 / 3;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid red;
+}
+
+.new-book {
+    margin-left: 75%;
 }
 
 .header button {
@@ -18,6 +30,13 @@
 
 .side-bar {
     grid-column: 1 / 2;
+    border: 1 px solid red;
+}
+
+#sidebar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .books {

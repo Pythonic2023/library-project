@@ -5,9 +5,15 @@ let modalAddBook = document.querySelector('#add-book');
 let modalForm = document.getElementById('modal-form');
 
 document.body.addEventListener('click', (e) => {
-    if (e.target && e.target.matches('.delete-book')) {
+    if(e.target && e.target.matches('.delete-book')) {
         const result = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
         deleteBook(result);
+    }
+
+    if(e.target && e.target.matches('.read-status')){
+        const index = bookArray.findIndex(book => book.uuid === e.target.dataset.uuid);
+        bookArray.at(index).changeStatus();
+        displayBooks();
     }
 });
 
@@ -31,7 +37,7 @@ closeModalButton.addEventListener("click", () => {
     addBookDialog.classList.toggle("modal")
 });
 
-let bookArray = [{title: "The one", author: "Yes", pages: "200", read: "y", uuid: "53"}, {title: "The Shining", author: "Tolstien", pages: "200", read: "y", uuid: "54"}, {title: "Sharknado", author: "Yes", pages: "200", read: "y", uuid: "55"}];
+let bookArray = [];
 
 function deleteBook(result){
     if(result != -1){
@@ -40,20 +46,15 @@ function deleteBook(result){
     }
 }
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.uuid = crypto.randomUUID();
-
-    this.info = function() {
-        console.log(`${this.title} by ${this.author} is ${this.pages} pages long. Read: ${this.read} UUID: ${this.uuid}`);
-    }
+const bookPrototype = {
+    changeStatus() {
+        this.read = this.read === "no" ? "yes" : "no";
+    },
 }
 
 function addBookToLibrary(title, author, pages, read){
-    let book = new Book(title, author, pages, read);
+    let book = Object.create(bookPrototype);
+    Object.assign(book, {title, author, pages, read, uuid: crypto.randomUUID()});
     bookArray.push(book);
     displayBooks();
 }
@@ -65,16 +66,35 @@ function displayBooks(){
         const bookDivision = document.createElement('div');
         bookDivision.classList.add(item.uuid);
         bookDivision.classList.add("book-division");
-        const bookItem = document.createElement('p');
+
+        const bookTitle = document.createElement('p');
+        const bookAuthor = document.createElement('p');
+        const bookPages = document.createElement('p');
+        const bookRead = document.createElement('p');
+
+        const changeReadStatus = document.createElement('button');
+        changeReadStatus.classList.add("read-status");
+        changeReadStatus.textContent = "Read Status";
+        changeReadStatus.dataset.uuid = item.uuid;
+
         const deleteBookButton = document.createElement('button');
         deleteBookButton.classList.add("delete-book");
         deleteBookButton.dataset.uuid = item.uuid;
         deleteBookButton.type = "button";
         deleteBookButton.textContent = "Delete Book";
+
         bookSection.appendChild(bookDivision);
-        bookDivision.appendChild(bookItem);
+        bookDivision.appendChild(bookTitle);
+        bookDivision.appendChild(bookAuthor);
+        bookDivision.appendChild(bookPages);
+        bookDivision.appendChild(bookRead);
         bookDivision.appendChild(deleteBookButton);
-        bookItem.textContent = item.title;
+        bookDivision.appendChild(changeReadStatus);
+        
+        bookTitle.textContent = `Title: ${item.title}`;
+        bookAuthor.textContent = `Author: ${item.author}`;
+        bookPages.textContent = ` Pages: ${item.pages}`;
+        bookRead.textContent = `Read: ${item.read}`; 
     });
 }
 
