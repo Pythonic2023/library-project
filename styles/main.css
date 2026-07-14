@@ -1,14 +1,26 @@
+:root {
+    --font-size: 1rem;
+    --button-padding: 5px;
+    --line-height: 1.5;
+}
+
+button {
+    padding: var(--button-padding);
+    font-size: var(--font-size);
+}
+
 html, body {
     margin: 0;
     overflow-x: hidden;
+    line-height: var(--line-height);
 }
 
 .grid-container {
     display: grid;
     height: 100vh;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: 1fr 5fr;
     grid-template-columns: 1fr 5fr;
-    
+    background-color: #0F0A0A;
 }
 
 .header {
@@ -17,15 +29,20 @@ html, body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    border: 1px solid red;
+    background-color: #F5EFED;
+}
+
+.header .title {
+    font-family: "Geist Pixel";
+      font-family: "Geist Pixel", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "ELSH" 50.0;
 }
 
 .new-book {
     margin-left: 75%;
-}
-
-.header button {
-    height: fit-content;
 }
 
 .side-bar {
@@ -49,6 +66,7 @@ html, body {
 
 .book-division {
     background-color: red;
+    font-size: var(--font-size);
 }
 
 .modal {
