@@ -26,6 +26,7 @@ modalForm.addEventListener("submit", (e) => {
     addBookToLibrary(...Object.values(formObject));
 });
 
+// Close modal without adding a book!!!!!!!!!!!!!
 
 addBookButton.addEventListener("click", () => {
     addBookDialog.showModal();
@@ -34,10 +35,9 @@ addBookButton.addEventListener("click", () => {
 
 closeModalButton.addEventListener("click", () => {
     addBookDialog.close();
-    addBookDialog.classList.toggle("modal")
 });
 
-let bookArray = [];
+let bookArray = [{title: "The Shining", author: "Bill Gates", pages: 304, read: "no"}, {title: "The Neither", author: "Bill Neither", pages: 304, read: "no"}, {title: "The Science", author: "Bill Nye", pages: 304, read: "no"}];
 
 function deleteBook(result){
     if(result != -1){
@@ -71,6 +71,8 @@ function displayBooks(){
         const bookAuthor = document.createElement('p');
         const bookPages = document.createElement('p');
         const bookRead = document.createElement('p');
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add("book-division-buttons");
 
         const changeReadStatus = document.createElement('button');
         changeReadStatus.classList.add("read-status");
@@ -88,8 +90,9 @@ function displayBooks(){
         bookDivision.appendChild(bookAuthor);
         bookDivision.appendChild(bookPages);
         bookDivision.appendChild(bookRead);
-        bookDivision.appendChild(deleteBookButton);
-        bookDivision.appendChild(changeReadStatus);
+        bookDivision.appendChild(buttonDiv);
+        buttonDiv.appendChild(deleteBookButton);
+        buttonDiv.appendChild(changeReadStatus);
         
         bookTitle.textContent = `Title: ${item.title}`;
         bookAuthor.textContent = `Author: ${item.author}`;

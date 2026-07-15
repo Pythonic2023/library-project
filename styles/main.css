@@ -2,6 +2,7 @@
     --font-size: 1rem;
     --button-padding: 5px;
     --line-height: 1.5;
+    --header-card-color: #F5EFED;
 }
 
 button {
@@ -29,12 +30,12 @@ html, body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #F5EFED;
+    background-color: var(--header-card-color);
 }
 
 .header .title {
-    font-family: "Geist Pixel";
-      font-family: "Geist Pixel", sans-serif;
+    font-family: "Geist Pixel", sans-serif;
+    font-size: 2.3rem;
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings:
@@ -60,18 +61,54 @@ html, body {
     grid-column: 2 / 3;
     display: grid;
     grid-template-columns: repeat(3, minmax(20%, 33%));
-    grid-auto-rows: minmax(20%, 50%);
+    grid-auto-rows: minmax(30%, min-content);
     gap: 3%;
+    padding: 1rem;
 }
 
 .book-division {
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--header-card-color);
     font-size: var(--font-size);
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+}
+
+.book-division-buttons {
+    display: flex;
+    gap: 1rem;
 }
 
 .modal {
     display: flex;
+    font-family: "Roboto", sans-serif;
     flex-direction: column;
-    background-color: red;
+    background-color: var(--header-card-color);
 }
 
+#modal-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+#modal-form  p > input {
+    width: 100%;
+}
+
+#modal-form div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20%;
+}
+
+button {
+    cursor: pointer;
+}
