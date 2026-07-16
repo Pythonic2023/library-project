@@ -6,32 +6,42 @@
     <title>Document</title>
     <script src="scripts/main.js" defer></script>
     <link rel="stylesheet" href="styles/main.css">
+
+    <!--Geist Pixel Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel:ELSH@50&display=swap" rel="stylesheet">
+
+    <!--Roboto Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    
     <div class="grid-container">
         <div class="header">
-            <h1>Library Project</h1>
+            <h1 class="title">Virtual Library</h1>
             <dialog>
                 <form id="modal-form" method="post">
                     <p>
-                        <label for="title">title</label>
+                        <label for="title">Title</label>
                         <input type="text" name="title" id="title">
                     </p>
                     <p>
-                        <label for="author">author</label>
+                        <label for="author">Author</label>
                         <input type="text" name="author" id="author">
                     </p>
                     <p>
-                        <label for="pages">pages</label>
+                        <label for="pages">Pages</label>
                         <input type="text" name="pages" id="pages">
                     </p>
                     <p>
-                        <label for="read">read</label>
+                        <label for="read">Read</label>
                         <input type="text" name="read" id="read">
                     </p>
                     <div>
-                        <button>Close</button>
+                        <button id="cancel-add-book">Close</button>
                         <button id="add-book">Add Book</button>
                     </div>
                 </form>

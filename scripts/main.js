@@ -19,11 +19,17 @@ document.body.addEventListener('click', (e) => {
 
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let formData = new FormData(modalForm);
-    let formObject = Object.fromEntries(formData.entries());
-    addBookDialog.close();
-    addBookDialog.classList.toggle("modal");
-    addBookToLibrary(...Object.values(formObject));
+    let submitterButtonId = e.submitter.id;
+    if(submitterButtonId != "cancel-add-book"){
+        let formData = new FormData(modalForm);
+        let formObject = Object.fromEntries(formData.entries());
+        addBookDialog.close();
+        addBookDialog.classList.toggle("modal");
+        addBookToLibrary(...Object.values(formObject));
+    } else {
+        addBookDialog.close();
+        addBookDialog.classList.toggle("modal");
+    }
 });
 
 
@@ -34,7 +40,6 @@ addBookButton.addEventListener("click", () => {
 
 closeModalButton.addEventListener("click", () => {
     addBookDialog.close();
-    addBookDialog.classList.toggle("modal")
 });
 
 let bookArray = [];
@@ -71,6 +76,8 @@ function displayBooks(){
         const bookAuthor = document.createElement('p');
         const bookPages = document.createElement('p');
         const bookRead = document.createElement('p');
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add("book-division-buttons");
 
         const changeReadStatus = document.createElement('button');
         changeReadStatus.classList.add("read-status");
@@ -88,8 +95,9 @@ function displayBooks(){
         bookDivision.appendChild(bookAuthor);
         bookDivision.appendChild(bookPages);
         bookDivision.appendChild(bookRead);
-        bookDivision.appendChild(deleteBookButton);
-        bookDivision.appendChild(changeReadStatus);
+        bookDivision.appendChild(buttonDiv);
+        buttonDiv.appendChild(deleteBookButton);
+        buttonDiv.appendChild(changeReadStatus);
         
         bookTitle.textContent = `Title: ${item.title}`;
         bookAuthor.textContent = `Author: ${item.author}`;
