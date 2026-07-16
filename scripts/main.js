@@ -19,14 +19,19 @@ document.body.addEventListener('click', (e) => {
 
 modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let formData = new FormData(modalForm);
-    let formObject = Object.fromEntries(formData.entries());
-    addBookDialog.close();
-    addBookDialog.classList.toggle("modal");
-    addBookToLibrary(...Object.values(formObject));
+    let submitterButtonId = e.submitter.id;
+    if(submitterButtonId != "cancel-add-book"){
+        let formData = new FormData(modalForm);
+        let formObject = Object.fromEntries(formData.entries());
+        addBookDialog.close();
+        addBookDialog.classList.toggle("modal");
+        addBookToLibrary(...Object.values(formObject));
+    } else {
+        addBookDialog.close();
+        addBookDialog.classList.toggle("modal");
+    }
 });
 
-// Close modal without adding a book!!!!!!!!!!!!!
 
 addBookButton.addEventListener("click", () => {
     addBookDialog.showModal();
@@ -37,7 +42,7 @@ closeModalButton.addEventListener("click", () => {
     addBookDialog.close();
 });
 
-let bookArray = [{title: "The Shining", author: "Bill Gates", pages: 304, read: "no"}, {title: "The Neither", author: "Bill Neither", pages: 304, read: "no"}, {title: "The Science", author: "Bill Nye", pages: 304, read: "no"}];
+let bookArray = [];
 
 function deleteBook(result){
     if(result != -1){
